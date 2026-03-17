@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div id="all-todo">All Todos :</div>
+        <button id="fetchTodos" onclick="fetchAllTodo()">
+            Fetch All Todos
+        </button>
+        <div id="display-all"></div>
+        <div id="creating-area">
+            <input type="text" placeholder="Create a new todo" />
+            <button onclick="createTod()">Create new TODO</button>
+        </div>
+        <script src="/vendor/axios/dist/axios.min.js"></script>
+        <script src="./main_logic.js"></script>
+    </body>
+</html>
