@@ -1,17 +1,58 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Todo App</title>
         <link rel="stylesheet" href="./style.css" />
     </head>
     <body>
-        <div id="all-todo">All Todos :</div>
-        <button id="fetchTodos" onclick="fetchAllTodo()">
-            Fetch All Todos
-        </button>
-        <div id="display-all"></div>
-        <div id="creating-area">
-            <input type="text" placeholder="Create a new todo" />
-            <button onclick="createTod()">Create new TODO</button>
-        </div>
+        <main class="app">
+            <header class="app__header">
+                <h1 class="app__title">Todo App</h1>
+                <p class="app__subtitle">
+                    Create and view your todos instantly
+                </p>
+            </header>
+
+            <section class="app__body">
+                <div class="section">
+                    <h2>Create New Todo</h2>
+                    <div class="toolbar" id="creating-area">
+                        <input
+                            id="todo-input"
+                            type="text"
+                            placeholder="Write your todo here..."
+                            autocomplete="off"
+                        />
+                        <button class="btn-primary" onclick="createTodo()">
+                            Add Todo
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>All Todos</h2>
+                    <div class="toolbar toolbar--spaced">
+                        <button
+                            id="fetchTodos"
+                            class="btn-ghost"
+                            onclick="fetchAllTodo()"
+                        >
+                            Fetch All Todos
+                        </button>
+                    </div>
+                    <div id="display-all">
+                        <p class="empty">No todos loaded yet.</p>
+                    </div>
+                </div>
+
+                <div class="section section--last">
+                    <p id="status">Ready.</p>
+                </div>
+            </section>
+        </main>
+
         <script src="/vendor/axios/dist/axios.min.js"></script>
         <script src="./main_logic.js"></script>
     </body>
