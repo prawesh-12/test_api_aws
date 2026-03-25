@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sign Up</title>
+        <style>
+            #main-container {
+                height: 400px;
+                width: 500px;
+                background-color: sandybrown;
+                border: 2px solid black;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                justify-content: center;
+                align-items: center;
+                margin: 40px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main-container">
+            <label>Enter your username:</label>
+            <input type="text" id="username" placeholder="username" required />
+            <input
+                type="password"
+                id="password"
+                placeholder="password"
+                required
+            />
+            <button id="signup" onclick="signupBro()">Sign-Up</button>
+            <div id="show-message"></div>
+        </div>
+
+        <script src="/vendor/axios/dist/axios.min.js"></script>
+        <script>
+            let isSigningUp = false;
+
+            async function signupBro() {
+                const messageBox = document.getElementById("show-message");
+                const signupBtn = document.getElementById("signup");
+                const username = document
+                    .getElementById("username")
+                    .value.trim();
+                const password = document
+                    .getElementById("password")
+                    .value.trim();
+
+                if (!username || !password) {
+                    messageBox.textContent =
+                        "Please enter both username and password.";
+                    return;
+                }
+
+                if (isSigningUp) {
+                    return;
+                }
+
+                try {
+                    isSigningUp = true;
+                    signupBtn.disabled = true;
+
+                    const response = await axios({
+                        method: "post",
+                        url: "/signup",
+                        data: {
+                            username: username,
+                            password: password,
+                        },
+                    });
+
+                    messageBox.textContent =
+                        response.data.message || "Signed up successfully.";
+
+                    window.location.href = "/login";
+                } catch (error) {
+                    messageBox.textContent =
+                        error?.response?.data?.message ||
+                        "Sign up failed. Please try again.";
+                } finally {
+                    isSigningUp = false;
+                    signupBtn.disabled = false;
+                }
+            }
+        </script>
+    </body>
+</html>

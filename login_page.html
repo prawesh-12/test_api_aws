@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <style>
+            #main-container {
+                height: 400px;
+                width: 500px;
+                background-color: sandybrown;
+                border: 2px solid black;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main-container">
+            <label>Enter your username: </label>
+            <input type="text" id="username" placeholder="username" required />
+            <input
+                type="password"
+                id="password"
+                placeholder="password"
+                required
+            />
+            <button id="sign-in" onclick="signinBro()">Sign-in</button>
+            <button id="go-signup" onclick="goToSignup()">Sign-Up</button>
+        </div>
+
+        <script src="/vendor/axios/dist/axios.min.js"></script>
+        <script>
+            async function signinBro() {
+                const username = document
+                    .getElementById("username")
+                    .value.trim();
+                const password = document
+                    .getElementById("password")
+                    .value.trim();
+
+                try {
+                    const response = await axios({
+                        method: "post",
+                        url: "/sign-in",
+                        data: {
+                            username: username,
+                            password: password,
+                        },
+                    });
+
+                    const token = response.data.token;
+                    localStorage.setItem("token", token);
+
+                    window.location.href = "/index.html";
+                } catch (error) {
+                    alert(
+                        error?.response?.data?.message ||
+                            "Sign in failed. Please try again.",
+                    );
+                }
+            }
+
+            function goToSignup() {
+                window.location.href = "/signup";
+            }
+        </script>
+    </body>
+</html>
